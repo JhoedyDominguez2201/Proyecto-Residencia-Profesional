@@ -1,0 +1,50 @@
+<div class="container mt-3">
+    <h2>Subir Imagen al Carrousel</h2>
+  
+    <div class="mb-3">
+      <label for="startDate" class="form-label">Fecha de Inicio:</label>
+      <input type="date" class="form-control" id="startDate" [(ngModel)]="startDate" name="startDate" required>
+    </div>
+  
+    <div class="mb-3">
+      <label for="endDate" class="form-label">Fecha de Fin:</label>
+      <input type="date" class="form-control" id="endDate" [(ngModel)]="endDate" name="endDate" required>
+    </div>
+  
+    <div class="mb-3">
+      <label for="image" class="form-label">Seleccionar Imagen:</label>
+      <input type="file" class="form-control" id="image" (change)="onFileChange($event)" name="image" accept="image/*" required>
+    </div>
+  
+    <button class="btn btn-primary" (click)="uploadImage()">Subir Imagen</button>
+  </div>
+  <div class="container mt-3">
+    <h2>Datos de Imágenes del Carrusel</h2>
+  
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Imagen</th>
+          <th scope="col">Fecha de Inicio</th>
+          <th scope="col">Fecha de Fin</th>
+          <!-- Agrega más encabezados según sea necesario -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let imageData of allImagesData">
+          <td (click)="abrirImagen(imageData.imagen)" style="cursor: pointer;">
+            <i class="fa  fa-picture-o" aria-hidden="true"></i>
+          </td>
+          <td>{{ imageData.fecha_inicio }}</td>
+          <td>{{ imageData.fecha_fin }}</td>
+
+          <td>
+            <button class="btn btn-danger" (click)="eliminarImagen(imageData._id)">Eliminar</button>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  

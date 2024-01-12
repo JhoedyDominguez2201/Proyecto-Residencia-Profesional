@@ -1,0 +1,39 @@
+.opcional-leyenda {
+    color: #888; /* Puedes cambiar el color según tus preferencias */
+    font-size: 80%; /* Puedes ajustar el tamaño de fuente según tus preferencias */
+    margin-left: 5px; /* Añade un pequeño margen a la izquierda para separar del label */
+  }
+  
+  
+  .campo-obligatorio-leyenda {
+    font-size: 0.8em; /* Ajusta el tamaño de la leyenda según tus preferencias */
+    color: #ff0000; /* Cambia el color según tus preferencias */
+  }
+  
+  .file-thumbnail {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .btn-remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .file-thumbnail img {
+    max-width: 200px; /* Ajusta el tamaño según tus necesidades */
+    max-height: 200px; /* Ajusta el tamaño según tus necesidades */
+  }
+  .delete-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: none;
+    color: rgb(255, 255, 255); /* Color del botón de eliminación */
+    cursor: pointer;
+  }
+  /* CSS para ocultar visualmente los archivos eliminados */
+.file-thumbnail.removed {
+  display: none;
+}

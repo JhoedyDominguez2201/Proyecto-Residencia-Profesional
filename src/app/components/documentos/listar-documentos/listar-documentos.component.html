@@ -1,0 +1,45 @@
+<div class="container mt-3">
+  <h2>Listar Documentos</h2>
+
+  <div class="form-group">
+    <label for="coleccionSelector">Selecciona una colección:</label>
+    <select id="coleccionSelector" class="form-control" [(ngModel)]="selectedColeccion" (change)="onColeccionSelected()">
+      <ng-container *ngFor="let coleccion of colecciones">
+        <ng-container *ngIf="coleccion !== 'migrations' && coleccion !== 'personal_access_tokens' && coleccion !== 'plantillas_predeterminadas' && coleccion !== 'users' && coleccion !== 'comentarios' && coleccion !== 'carrousel_images'">
+          <option [value]="coleccion">{{ coleccion }}</option>
+        </ng-container>
+      </ng-container>
+    </select>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <ng-container *ngFor="let campo of camposDocumento">
+          <th *ngIf="campo !== '_id'">{{ formatFieldName(campo)}}</th>
+        </ng-container>
+        <th *ngIf="documentos.length > 0">Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let documento of documentos">
+        <ng-container *ngFor="let campo of camposDocumento">
+          <td *ngIf="campo !== '_id'">
+            <ng-container *ngIf="campo === 'Recurso Digital'">
+              <a *ngIf="campo === 'Recurso Digital'" (click)="onResourceIconClick(documento['Recurso Digital'])">
+                <i class="fa fa-external-link" aria-hidden="true"></i>
+              </a>
+            </ng-container>
+            <ng-container *ngIf="campo !== 'Recurso Digital'">{{ documento[campo] }}</ng-container>
+          </td>
+        </ng-container>
+        <td *ngIf="documentos.length > 0">
+          <button class="btn btn-danger" (click)="eliminarDocumento(documento['_id'])">Eliminar</button>&nbsp;
+          <button class="btn btn-primary" (click)="plantillaName && editarDocumento(plantillaName, documento['_id'])">Editar</button>&nbsp;
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+</div>

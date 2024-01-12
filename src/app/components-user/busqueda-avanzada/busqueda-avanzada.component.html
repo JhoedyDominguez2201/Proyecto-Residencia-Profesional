@@ -1,0 +1,67 @@
+<div class="container mt-3">
+  <label for="coleccion">Selecciona una colección:</label>
+  <select id="coleccion" class="form-control" [(ngModel)]="selectedColeccion" (change)="onColeccionChange()">
+    <ng-container *ngFor="let coleccion of colecciones">
+      <!-- Omitir ciertas colecciones -->
+      <ng-container *ngIf="coleccion !== 'migrations' && coleccion !== 'personal_access_tokens' && coleccion !== 'plantillas_predeterminadas' && coleccion !== 'users' && coleccion !== 'comentarios' && coleccion !== 'carrousel_images'">
+        <option [value]="coleccion">{{ coleccion }}</option>
+      </ng-container>
+    </ng-container>
+  </select>
+
+  <div *ngIf="selectedCampos.length > 0">
+    <h4>Campos disponibles:</h4>
+    <div *ngFor="let campo of selectedCampos">
+      <!-- Omitir campos de tipo "file" -->
+      <ng-container *ngIf="campo.type !== 'file'">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="{{ campo.name }}" [(ngModel)]="campo.editable" (change)="onCheckboxChange($event, campo)">
+          <label class="form-check-label" for="{{ campo.name }}">{{ capitalizeFirstLetter( campo.name )}}:</label>
+          <!-- Mostrar input según el tipo del campo -->
+          <ng-container [ngSwitch]="campo.type">
+            <input *ngSwitchCase="'string'" type="text" class="form-control mb-2" [ngClass]="{'readonly': !campo.editable}" [(ngModel)]="campo.valor" (input)="onInputChange(campo)" />
+            <input *ngSwitchCase="'number'" type="number" class="form-control mb-2" [ngClass]="{'readonly': !campo.editable}" [(ngModel)]="campo.valor" (input)="onInputChange(campo)" />
+            <input *ngSwitchCase="'date'" type="date" class="form-control mb-2" [ngClass]="{'readonly': !campo.editable}" [(ngModel)]="campo.valor" (input)="onInputChange(campo)" />
+            <input *ngSwitchDefault type="text" class="form-control mb-2" [ngClass]="{'readonly': !campo.editable}" [(ngModel)]="campo.valor" (input)="onInputChange(campo)" />
+          </ng-container>
+          
+        </div>
+      </ng-container>
+    </div>
+  
+  
+  
+  
+
+    <!-- Agrega aquí tus controles para la búsqueda avanzada -->
+    <button type="button" (click)="buscarAvanzado()" class="btn btn-primary">Buscar Avanzado</button>
+
+    <!-- Mostrar resultados solo si se ha hecho clic en el botón de búsqueda -->
+    <div *ngIf="mostrarResultados">
+      <h4 class="text-center">Resultados:</h4>
+      <ul class="list-group">
+        <a
+          *ngFor="let resultado of resultados"
+          class="list-group-item"
+          [class.mouse-hovered]="mouseSobreResultado === resultado"
+          (mouseenter)="mouseSobreResultado = resultado"
+          (mouseleave)="mouseSobreResultado = null"
+          (click)="verDocumento(resultado)"
+        >
+          <div *ngFor="let key of resultado | keyvalue">
+            <!-- Omitir _id y Recurso Digital -->
+            <ng-container *ngIf="key.key !== '_id' && key.key !== 'Recurso Digital' && key.key !== 'created_at' && key.key !== 'updated_at' && key.key !== 'tipo_coleccion'">
+              <strong>{{ key.key }}:</strong> {{ key.value }}
+            </ng-container>
+          </div>
+        </a>
+      </ul>
+    </div>
+    
+    
+    
+  </div>  
+  <div class="container mt-3">
+    <router-outlet></router-outlet>
+  </div>
+</div>

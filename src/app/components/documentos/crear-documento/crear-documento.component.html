@@ -1,0 +1,69 @@
+<div class="container mt-3">
+  <h2>Crear Documento</h2>
+  
+  <!-- Selector de Plantillas -->
+  <div class="form-group">
+    <label for="plantillaSelector">Selecciona una plantilla:</label>
+    <select id="plantillaSelector" class="form-control" [(ngModel)]="selectedPlantilla" (change)="onPlantillaSelected()">
+      <option value="" disabled selected>Selecciona una plantilla</option>
+      <ng-container *ngFor="let plantilla of plantillas">
+        <!-- Agrega una condición para excluir las plantillas que no deseas mostrar -->
+        <ng-container *ngIf="plantilla !== 'migrations' && plantilla !== 'personal_access_tokens' && plantilla !== 'plantillas_predeterminadas' && plantilla !== 'users' && plantilla !== 'comentarios' && plantilla !== 'carrousel_images' ">
+          <option [value]="plantilla">{{ plantilla }}</option>
+        </ng-container>
+      </ng-container>
+    </select>
+  </div>
+
+  <div *ngIf="camposPlantilla.length > 0">
+    <h4>Campos de la Plantilla</h4>
+    <form (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+      <div *ngFor="let campo of camposPlantilla">
+        <!-- Excluir el campo '_id' -->
+        <ng-container *ngIf="campo.name !== '_id'">
+          <label [for]="campo.name">{{ campo.alias || campo.name }}:</label>
+      
+          <ng-container [ngSwitch]="campo.type">
+            <!-- Utiliza un input de tipo 'file' para el campo 'files' -->
+            <ng-container *ngSwitchCase="'file'">
+              <input type="file" class="form-control" [id]="campo.name" name="{{ campo.name }}" (change)="onFileChange($event)" multiple>
+              <!-- Área para mostrar miniaturas de archivos -->
+              <div *ngIf="files.length > 0">
+                <h5>Archivos Seleccionados:</h5>
+                <div class="file-thumbnail" *ngFor="let file of files; let i = index">
+                  <!-- Mostrar miniatura del archivo si es una imagen -->
+                  <img *ngIf="isImageFile(file)" [src]="getThumbnailUrl(file)" alt="Miniatura">
+                  <!-- Mostrar nombre del archivo si no es una imagen -->
+                  <span *ngIf="!isImageFile(file)">{{ file.name }}</span>
+                  <!-- Botón para eliminar el archivo -->
+                  <button type="button" class="btn btn-link delete-button" (click)="removeFile(i)">
+                    <i class="fa fa-times-circle" aria-hidden="true"></i>
+                  </button>                
+                </div>
+              </div>
+            </ng-container>
+      
+            <!-- Utiliza un input de tipo 'number' para el campo de tipo 'number' -->
+            <ng-container *ngSwitchCase="'number'">
+              <input type="number" class="form-control" [id]="campo.name" name="{{ campo.name }}" [(ngModel)]="documentData[campo.name]" required>
+            </ng-container>
+      
+            <ng-container *ngSwitchCase="'date'">
+              <input type="date" class="form-control" [id]="campo.name" name="{{ campo.name }}" [(ngModel)]="documentData[campo.name]" required>
+            </ng-container>
+      
+            <!-- Para otros tipos, utiliza un input de texto por defecto -->
+            <ng-container *ngSwitchDefault>
+              <input type="text" class="form-control" [id]="campo.name" name="{{ campo.name }}" [(ngModel)]="documentData[campo.name]" required>
+            </ng-container>
+      
+            <small *ngIf="campo.required" class="campo-obligatorio-leyenda">* Obligatorio</small>
+            <small *ngIf="!campo.required" class="campo-opcional-leyenda">Opcional</small>
+          </ng-container>
+        </ng-container>
+      </div>
+      
+      <button type="submit" class="btn btn-primary">Crear Documento</button>
+    </form>
+  </div>
+</div>

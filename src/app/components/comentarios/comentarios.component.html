@@ -1,0 +1,47 @@
+<div class="container">
+  <label for="vista">Seleccionar vista:</label>
+  <select id="vista" class="form-select" [(ngModel)]="vistaSeleccionada" (change)="obtenerComentarios()">
+    <option value="pendientes">Comentarios Pendientes</option>
+    <option value="aprobados">Comentarios Aprobados</option>
+  </select>
+</div>
+
+<div *ngIf="vistaSeleccionada === 'pendientes'" class="mt-3">
+  <h3 class="mb-3">Comentarios Pendientes</h3>
+  <div *ngFor="let comentario of comentariosPendientes" class="card mb-3">
+    <div class="card-body">
+      <p class="card-text"><strong> Nombre del usuario:</strong> {{ comentario.usuario.nombre}} {{ comentario.usuario.apellido_paterno }} {{ comentario.usuario.apellido_materno }}</p>
+      <p class="card-text"><strong>Contenido del comentario:</strong> {{ comentario.contenido }}</p>
+
+      <div *ngFor="let item of comentario.documento | keyvalue">
+        <!-- Excluir campos específicos -->
+        <ng-container *ngIf="item.key !== 'created_at' && item.key !== 'updated_at' && item.key !== '_id' && item.key !== 'Recurso Digital'">
+          <p class="card-text"> <strong>{{ item.key }}</strong> : {{ item.value }}</p>
+        </ng-container>
+      </div>
+
+
+      <button class="btn btn-success" (click)="aprobarComentario(comentario._id)">Aprobar</button>&nbsp;
+      <button class="btn btn-danger" (click)="denegarComentario(comentario._id)">Denegar</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="vistaSeleccionada === 'aprobados'" class="mt-3">
+  <h3 class="mb-3">Comentarios Aprobados</h3>
+  <div *ngFor="let comentario of comentariosAprobados" class="card mb-3">
+    <div class="card-body">
+      <p class="card-text"><strong> Nombre del usuario:</strong> {{ comentario.usuario.nombre}} {{ comentario.usuario.apellido_paterno }} {{ comentario.usuario.apellido_materno }}</p>
+      <p class="card-text"><strong>Contenido del comentario:</strong> {{ comentario.contenido }}</p>
+
+      <div *ngFor="let item of comentario.documento | keyvalue">
+        <!-- Excluir campos específicos -->
+        <ng-container *ngIf="item.key !== 'created_at' && item.key !== 'updated_at' && item.key !== '_id' && item.key !== 'Recurso Digital'">
+          <p class="card-text"> <strong>{{ item.key }}</strong> : {{ item.value }}</p>
+        </ng-container>
+      </div>
+
+
+    </div>
+  </div>
+</div>

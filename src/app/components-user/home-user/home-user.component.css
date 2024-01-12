@@ -1,0 +1,32 @@
+.square-card {
+    width: 100%; /* Ajusta el ancho según tus necesidades */
+    max-width: 200px; /* Ajusta el ancho máximo según tus necesidades */
+    transition: background-color 0.3s ease; /* Agrega una transición suave */
+
+  }
+
+  
+.square-card:hover {
+  background-color: #d0e3fc; /* Cambia el color de fondo al pasar el ratón */
+}
+  .custom-mr {
+    margin-right: 10px; /* Ajusta el valor según tus necesidades */
+  }
+  
+  /* En tu archivo de estilos CSS */
+.mouse-hovered {
+    background-color: #e0e0e0; /* Cambia el color de fondo según tus preferencias */
+    transition: background-color 0.3s ease; /* Agrega una transición suave */
+  }
+  
+
+/* Agrega esto a tu archivo de estilos CSS (por ejemplo, home-user.component.css) */
+.thumbnail {
+  max-width: 150px; /* Ajusta el tamaño según tus preferencias */
+  max-height: 150px; /* Ajusta el tamaño según tus preferencias */
+}
+/* Agrega esto a tu archivo de estilos CSS (por ejemplo, home-user.component.css) */
+.thumbnail2 {
+  max-width: 100px; /* Ajusta el tamaño según tus preferencias */
+  max-height: 100px; /* Ajusta el tamaño según tus preferencias */
+}

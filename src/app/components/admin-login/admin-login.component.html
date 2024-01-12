@@ -1,0 +1,41 @@
+<!-- admin-login.component.html -->
+
+<section class="vh-100" style="background-color: #ffffff;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-8 col-lg-10 col-md-12">
+        <div class="card" style="border-radius: 1rem; background-color: #b4c7db;">
+          <div class="row g-0">
+            <div class="col-md-6 d-none d-md-block">
+              <img src="./assets/vista-superior-mujer-escribiendo-computadora-portatil_23-2150062348.jpg"
+                alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; height: 100%; width: 100%;" />
+            </div>
+            <div class="col-md-6 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-black">
+                <h2 class="fw-bold mb-4">Iniciar Sesión </h2>
+
+                <form [formGroup]="loginForm" (ngSubmit)="loginAdmin()">
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Correo Electrónico:</label>
+                    <input type="email" id="email" class="form-control" formControlName="email"
+                      placeholder="Ingrese su correo electrónico" />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña:</label>
+                    <input type="password" id="password" class="form-control" formControlName="password"
+                      placeholder="Ingrese su contraseña" />
+                  </div>
+
+                  <button type="submit" class="btn btn-dark btn-lg btn-block">Iniciar Sesión</button>
+                </form>
+
+               
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

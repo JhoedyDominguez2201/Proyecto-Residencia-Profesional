@@ -1,0 +1,21 @@
+.thumbnails-container {
+    display: flex;
+    justify-content: center; /* Centra las miniaturas horizontalmente */
+    align-items: center; /* Centra las miniaturas verticalmente */
+    margin-top: 10px;
+  }
+  
+  .thumbnail {
+    width: 50px; /* Ajusta el tamaño según tus preferencias */
+    height: 50px; /* Ajusta el tamaño según tus preferencias */
+    margin: 0 5px; /* Ajusta el espacio entre las miniaturas según tus preferencias */
+    cursor: pointer;
+  }
+  
+  .main-image {
+    max-width: 100%; /* Ajusta el tamaño máximo según tus preferencias */
+    max-height: 400px; /* Ajusta el tamaño máximo según tus preferencias */
+    margin: 0 auto; /* Centra la imagen horizontalmente */
+    display: block; /* Evita el espacio adicional debajo de la imagen */
+  }
+  

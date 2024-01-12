@@ -1,0 +1,25 @@
+<!-- home-admin.component.html -->
+<ng-container *ngIf="isAuthenticated; else notAuthenticated">
+    <!-- Tu mensaje para el usuario autenticado en la ruta /admin -->
+    <div class="container mt-5">
+      <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="text-center">
+          <h1 class="display-4">¡Bienvenido!</h1>
+          <p class="lead">Estás autenticado como <strong>{{ userFullName }}</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  
+  <ng-template #notAuthenticated>
+    <!-- Tu mensaje para el usuario no autenticado o en otras rutas -->
+    <div class="container mt-3">
+      <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class=" text-center">
+          <h1 class="display-4">¡Bienvenido!</h1>
+          <p class="lead">Por favor inicia sesión</p>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  

@@ -1,0 +1,37 @@
+<div *ngIf="datosDocumento">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mt-4" enctype="multipart/form-data">
+    <div *ngFor="let propiedad of getObjectKeys(datosDocumento)" class="mb-3">
+      <ng-container *ngIf="propiedad !== '_id' && propiedad.indexOf('Recurso Digital') === -1 && propiedad !== 'created_at' && propiedad !== 'updated_at'">
+        <label class="form-label"><strong>{{ propiedad }}:</strong></label>
+        <input [type]="propiedad.indexOf('Recurso Digital') !== -1 ? 'file' : 'text'" [name]="propiedad" class="form-control" [formControlName]="propiedad" />
+      </ng-container>
+
+      <ng-container *ngIf="propiedad.indexOf('Recurso Digital') !== -1">
+        <label class="form-label"><strong>{{ propiedad }}:</strong></label>
+
+        <ng-container *ngIf="isImageFile(datosDocumento['Recurso Digital'])">
+          <div *ngFor="let miniatura of miniaturas; let i = index" class="mb-2">
+            <img [src]="miniatura" alt="Miniatura" class="img-thumbnail mr-2" style="max-width: 100px; max-height: 100px;">
+            <button type="button" class="btn btn-danger btn-sm" (click)="quitarMiniatura(i)">Quitar</button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="!isImageFile(datosDocumento['Recurso Digital'])">
+          <a (click)="abrirVisualizador(datosDocumento['Recurso Digital'])" style="cursor: pointer;" class="btn btn-link">
+            <i class="fa fa-external-link" aria-hidden="true"></i>
+            Ver Archivo
+          </a>
+        </ng-container>
+
+        <input *ngIf="propiedad.indexOf('Recurso Digital') === -1" type="file" (change)="onFileChange($event)" class="form-control" />
+      </ng-container>
+
+      <!-- Nuevo input para archivos debajo de "Recurso Digital" -->
+      <div *ngIf="propiedad === 'Recurso Digital'" class="mb-3">
+        <input type="file" (change)="onFileChange($event)" multiple class="form-control" />
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+  </form>
+</div>

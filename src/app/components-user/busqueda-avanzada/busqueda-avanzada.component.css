@@ -1,0 +1,14 @@
+/* En tu archivo de estilos CSS */
+.list-group-item {
+    transition: background-color 0.3s ease; /* Agrega una transición suave */
+    margin-bottom: 10px; /* Ajusta el valor según sea necesario para el espacio entre resultados */
+
+      padding: 10px; /* Ajusta el valor según sea necesario */
+
+  }
+  
+  .list-group-item:hover {
+    background-color: #d0e3fc; /* Cambia el color de fondo al pasar el ratón */
+  }
+  
+  

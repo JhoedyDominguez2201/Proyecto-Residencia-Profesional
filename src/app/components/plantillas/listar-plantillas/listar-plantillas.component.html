@@ -1,0 +1,27 @@
+<!-- listar-plantillas.component.html -->
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Plantillas</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nombre de la Plantilla</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let plantilla of plantillas">
+        <!-- Agrega una condición para excluir plantillas específicas -->
+<!-- En el ng-container, ajusta la condición para excluir "migrations", "personal_access_tokens" y "plantillas_predeterminadas" -->
+<ng-container *ngIf="plantilla !== 'migrations' && plantilla !== 'personal_access_tokens' && plantilla !== 'plantillas_predeterminadas' && plantilla !== 'users' && plantilla !== 'comentarios' && plantilla !== 'carrousel_images'">
+  <tr>
+            <td>{{ plantilla }}</td>
+            <td>
+              <button class="btn btn-primary" (click)="editarPlantilla(plantilla)">Editar</button>&nbsp; 
+              <button class="btn btn-danger" (click)="eliminarPlantilla(plantilla)">Eliminar</button>
+            </td>
+          </tr>
+        </ng-container>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

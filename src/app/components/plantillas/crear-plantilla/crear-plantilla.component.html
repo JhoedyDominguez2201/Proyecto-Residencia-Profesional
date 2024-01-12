@@ -1,0 +1,32 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Crear Plantilla</h2>
+
+  <label>Nombre de la Plantilla</label>
+  <input [(ngModel)]="plantillaName" name="plantillaName" class="form-control mb-2" />
+
+  <h3>Campos de la Plantilla:</h3>
+  <div *ngFor="let campo of camposPlantilla; let i = index" class="campo">
+    <label>Nombre del Campo</label>
+    <input [(ngModel)]="campo.name" [name]="'campoNombre_' + i" class="form-control mb-2" />
+
+    <label>Tipo del Campo</label>
+    <select [(ngModel)]="campo.type" [name]="'campoTipo_' + i" class="form-control mb-2">
+      <option value="string">String</option>
+      <option value="number">Number</option>
+      <option value="file">File</option>
+      <option value="date">Date</option> <!-- Agregado para fechas -->
+      <!-- Agrega más opciones según los tipos de dato que puedas tener -->
+    </select>
+
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="'campoRequerido_' + i" [(ngModel)]="campo.required" [name]="'campoRequerido_' + i" />
+      <label class="form-check-label" for="'campoRequerido_' + i">Campo Obligatorio</label>
+    </div>
+    
+    <button type="button" (click)="quitarCampo(i)" class="btn btn-danger">Quitar Campo</button>
+  </div>
+
+  <button type="button" (click)="agregarCampo()" class="btn btn-success">Agregar Campo</button>
+
+  <button type="button" (click)="crearPlantilla()" class="btn btn-primary">Crear Plantilla</button>
+</div>

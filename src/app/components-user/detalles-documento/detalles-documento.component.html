@@ -1,0 +1,120 @@
+<div *ngIf="detallesDocumento" class="container mt-4">
+  <div class="row">
+    <!-- Detalles del Documento -->
+    <div class="col-md-8">
+      <div class="card bg-light" style="width: 100%;">
+        <div class="card-body">
+
+          <ng-container *ngIf="tipoRecurso === 'pdf'">
+            <!-- Visualizador para PDF -->
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe [src]="rutaCompleta | safe" width="100%" height="500px"></iframe>
+            </div>
+          </ng-container>
+          
+          <ng-container *ngIf="tipoRecurso === 'jpg' || tipoRecurso === 'png' || tipoRecurso === 'jpeg'">
+            <!-- Visualizador para imágenes -->
+            <div class="lightbox-container">
+              <!-- Imagen principal en la vista previa -->
+              <div *ngFor="let image of lightboxImages; let i = index">
+                <img [src]="image.src" alt="{{ image.caption }}" class="img-fluid main-image" appDisableRightClick (click)="openLightbox(i)" *ngIf="i === 0 || (i > 0 && mostrarLightbox)" />
+              </div>
+              
+              <!-- Miniaturas de las imágenes restantes -->
+              <div class="thumbnails-container">
+                <div *ngFor="let image of lightboxImages; let i = index">
+                  <img [src]="image.src" alt="{{ image.caption }}" class="thumbnail" (click)="openLightbox(i)" *ngIf="i > 0" />
+                </div>
+              </div>
+          
+              <div class="col-md-8">
+                <div class="container mt-3">
+                  <button class="btn btn-success" (click)="descargarConMarcaAgua()">Descargar</button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          
+          
+          
+          
+          <ng-container *ngIf="tipoRecurso === 'mp3' || tipoRecurso === 'wav'">
+            <!-- Visualizador para archivos de audio -->
+            <audio controls>
+              <source [src]="rutaCompleta" type="audio/mp3">
+              <source [src]="rutaCompleta " type="audio/wav">
+              Tu navegador no soporta el elemento de audio.
+            </audio>
+          </ng-container>
+          
+
+          <ng-container *ngIf="tipoRecurso === 'mp4'">
+            <!-- Visualizador para videos -->
+            <div class="embed-responsive embed-responsive-16by9">
+              <video [src]="rutaCompleta " class="embed-responsive-item" controls  ></video>
+            </div>
+          </ng-container>
+
+          <!-- Lista de detalles excluyendo algunas propiedades específicas y valores nulos o indefinidos -->
+          <ul class="list-group mt-4">
+            <ng-container *ngFor="let detalle of detallesDocumento | keyvalue">
+              <ng-container *ngIf="detalle.key !== '_id' && detalle.key !== 'created_at' && detalle.key !== 'updated_at' && detalle.key !== 'Recurso Digital'">
+                <li class="list-group-item">
+                  <strong>{{ capitalizeFirstLetter(detalle.key) }}:</strong> {{ capitalizeFirstLetter(detalle.value) }}
+                </li>
+              </ng-container>
+            </ng-container>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Comentarios -->
+    <div class="col-md-4">
+      <div class="card bg-light" style="width: 100%;">
+        <div class="card-body">
+          <h5 class="card-title">Comentarios</h5>
+          <ul>
+            <!-- Utiliza *ngFor para iterar sobre la lista de comentarios -->
+            <li *ngFor="let comentario of comentariosAprobados">
+              <div class="card-body">
+                <h5 class="card-title">{{ comentario.usuario.nombre }} {{ comentario.usuario.apellido_paterno }} {{ comentario.usuario.apellido_materno }}:</h5>
+                <p class="card-text">{{ comentario.contenido }}</p>
+                <p class="card-text"><small class="text-muted">Publicado el: {{ comentario.created_at | date: 'medium' }}</small></p>
+              </div>
+              <!-- Puedes agregar más detalles según la estructura de tu comentario -->
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Formulario de Comentarios -->
+  <div class="row mt-4">
+    <div class="col-md-8">
+      <div class="card bg-light" style="width: 100%;">
+        <div class="card-body">
+          <h5 class="card-title">Deja tu comentario</h5>
+          <!-- Agrega (ngSubmit) y [formGroup] para usar formularios reactivos -->
+          <form [formGroup]="comentarioFormulario" (ngSubmit)="enviarComentario()">
+            <div class="form-group">
+              <label for="comentario">Comentario:</label>
+              <!-- Usa formControlName para enlazar el control del formulario -->
+              <textarea class="form-control" id="comentario" rows="3" formControlName="comentarioControl"></textarea>
+            </div>
+            <hr>
+            <button type="submit" class="btn btn-primary">Enviar Comentario</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!detallesDocumento" class="mt-4">
+    <p>Cargando detalles del documento...</p>
+  </div>
+
+</div>

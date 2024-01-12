@@ -1,0 +1,37 @@
+<!-- listar-administrativos.component.html -->
+<div class="container mt-3">
+    <h2>Listado de Administrativos</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido Paterno</th>
+          <th>Apellido Materno</th>
+          <th>Correo</th>
+          <th>Roles</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let administrativo of administrativos">
+          <td>{{ administrativo.nombre }}</td>
+          <td>{{ administrativo.apellido_paterno }}</td>
+          <td>{{ administrativo.apellido_materno }}</td>
+          <td>{{ administrativo.email }}</td>
+          <td>{{ administrativo.role.join(', ') }}</td>
+          <td>
+            <!-- Botón de Editar -->
+            <button class="btn btn-primary btn-sm" (click)="editarAdministrativo(administrativo._id)">
+              Editar
+            </button>&nbsp;
+            
+            <!-- Botón de Eliminar -->
+            <button class="btn btn-danger btn-sm" (click)="eliminarAdministrativo(administrativo._id)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

@@ -1,0 +1,126 @@
+<section class="vh-100" style="background-color: #f4f5f7;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-lg-6 mb-4 mb-lg-0">
+        <div class="card mb-3" style="border-radius: .5rem;">
+          <div class="row g-0">
+            <div class="col-md-4 gradient-custom text-center text-white"
+              style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+
+              <img src="./assets/6596121.png" alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
+
+              <div *ngIf="user">
+                <h5>{{ user.nombre }} {{ user.apellido_paterno }}</h5>
+                <p>{{ user.ocupacion }}</p>
+                <i class="fa fa-pencil-square-o" (click)="enterEditMode()"></i>
+              </div>
+
+            </div>
+            <div class="col-md-8">
+              <div class="card-body p-4">
+                <h6>Información</h6>
+                <hr class="mt-0 mb-4">
+                <div *ngIf="!editingMode">
+                  <!-- Modo de visualización -->
+                  <div class="row pt-1">
+                    <div class="col-6 mb-3">
+                      <h6>Correo electrónico</h6>
+                      <p class="text-muted" *ngIf="user">{{ user.email }}</p>
+                      <h6>Edad</h6>
+                      <p class="text-muted" *ngIf="user">{{ user.edad }}</p>
+                      <h6>Estado</h6>
+                      <p class="text-muted" *ngIf="user">{{ user.estado }}</p>
+                      <h6>Escolaridad</h6>
+                      <p class="text-muted" *ngIf="user">{{ user.escolaridad }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="editingMode">
+                  <!-- Modo de edición -->
+                  <label for="editedNombre">Nombre:</label>
+                  <input id="editedNombre" [(ngModel)]="editedValues.nombre" class="form-control" />
+
+                  <label for="editedApellido_paterno">Apellido paterno:</label>
+                  <input id="editedApellido_paterno" [(ngModel)]="editedValues.apellido_paterno" class="form-control" />
+
+                  <label for="editedApellido_materno">Apellido materno:</label>
+                  <input id="editedApellido_materno" [(ngModel)]="editedValues.apellido_materno" class="form-control" />
+
+                  <label for="editedEmail">Correo electrónico:</label>
+                  <input id="editedEmail" [(ngModel)]="editedValues.email" class="form-control" />
+
+                  <label for="editedEdad">Edad:</label>
+                  <input id="editedEdad" [(ngModel)]="editedValues.edad" class="form-control" />
+
+                  <label for="editedEstado">Estado:</label>
+                  <select id="editedEstado" [(ngModel)]="editedValues.estado" class="form-select">
+                    <option selected>Selecciona un estado</option>
+                    <option value="Aguascalientes">Aguascalientes</option>
+                    <option value="Baja California">Baja California</option>  
+                    <option value="Baja California Sur">Baja California Sur</option>
+                    <option value="Campeche">Campeche</option>
+                    <option value="Chiapas">Chiapas</option>
+                    <option value="Chihuahua">Chihuahua</option>
+                    <option value="Coahuila">Coahuila</option>
+                    <option value="Colima">Colima</option>
+                    <option value="Durango">Durango</option>
+                    <option value="Estado de México">Estado de México</option>
+                    <option value="Guanajuato">Guanajuato</option>
+                    <option value="Guerrero">Guerrero</option>
+                    <option value="Hidalgo">Hidalgo</option>
+                    <option value="Jalisco">Jalisco</option>
+                    <option value="Michoacán">Michoacán</option>
+                    <option value="Morelos">Morelos</option>
+                    <option value="Nayarit">Nayarit</option>
+                    <option value="Nuevo León">Nuevo León</option>
+                    <option value="Oaxaca">Oaxaca</option>
+                    <option value="Puebla">Puebla</option>
+                    <option value="Querétaro">Querétaro</option>
+                    <option value="Quintana Roo">Quintana Roo</option>
+                    <option value="San Luis Potosí">San Luis Potosí</option>
+                    <option value="Sinaloa">Sinaloa</option>
+                    <option value="Sonora">Sonora</option>
+                    <option value="Tabasco">Tabasco</option>
+                    <option value="Tamaulipas">Tamaulipas</option>
+                    <option value="Tlaxcala">Tlaxcala</option>
+                    <option value="Veracruz">Veracruz</option>
+                    <option value="Yucatán">Yucatán</option>
+                    <option value="Zacatecas">Zacatecas</option>
+                    <!-- Agrega opciones aquí -->
+                  </select>
+
+                  <label for="editedOcupacion">Ocupacion:</label>
+                  <select id="editedOcupacion" [(ngModel)]="editedValues.ocupacion" class="form-select">
+                    <option *ngFor="let option of ocupacionOptions" [value]="option">{{ option }}</option>
+                  </select>
+                  <input *ngIf="editedValues.ocupacion === 'Otro'" id="editedOcupacionOtro" [(ngModel)]="editedValues.ocupacionOtro" class="form-control" placeholder="Especifica otra ocupación">
+                  
+                  <label for="editedEscolaridad">Escolaridad:</label>
+                  <select id="editedEscolaridad" [(ngModel)]="editedValues.escolaridad" class="form-select">
+                    <option selected>Selecciona una escolaridad</option>
+                    <option value="Primaria">Primaria</option>
+                    <option value="Secundaria">Secundaria</option>
+                    <option value="Preparatoria">Preparatoria</option>
+                    <option value="Universidad">Universidad</option>
+                    <option value="Postgrado">Postgrado</option>
+                  </select>
+
+                  <label for="editedPassword">Contraseña:</label>
+                  <input id="editedPassword" type="password" [(ngModel)]="editedValues.password" class="form-control" />
+
+                  <label for="editedConfirmPassword">Confirmar contraseña:</label>
+                  <input id="editedConfirmPassword" type="password" class="form-control" />
+
+                  <!-- Botones para guardar o cancelar la edición -->
+                  <button (click)="saveChanges()" class="btn btn-success">Guardar</button>
+                  <button (click)="exitEditMode()" class="btn btn-secondary">Cancelar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
